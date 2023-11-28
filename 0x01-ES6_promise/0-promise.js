@@ -1,4 +1,4 @@
-function getResponseFromAPI() {
+export default function getResponseFromAPI() {
     const url = "https://api.example.com/endpoint";
     const options = {
       method: "GET",
@@ -14,4 +14,4 @@ function getResponseFromAPI() {
         console.error(error);
         throw error;
       });
-} 
+}
