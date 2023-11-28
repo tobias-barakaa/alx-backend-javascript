@@ -3,5 +3,5 @@ export default function appendToEachArrayValue(array, appendString) {
     value = appendString + value;
   }
 
-  return array;
+  return array.map(value => appendString + value);
 }
