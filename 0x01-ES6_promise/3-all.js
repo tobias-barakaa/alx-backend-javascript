@@ -29,3 +29,4 @@ handleProfileSignup()
   .catch((error) => {
     console.error('Signup system offline');
 });
+export default handleProfileSignup;
