@@ -1,5 +1,4 @@
-const getResponseFromAPI = () => ({
-    return new Promise((resolve, reject) => {
-        resolve(true)
-    })});
+const getResponseFromAPI = () => new Promise((resolve, reject) => {
+  resolve(true);
+});
 export default getResponseFromAPI;
