@@ -4,11 +4,11 @@ function handleProfileSignup() {
   return new Promise((resolve, reject) => {
     uploadPhoto()
       .then((photoResult) => {
-        const { body } = photoResult;
+        const { body[0] } = photoResult;
 
         createUser()
           .then((userResult) => {
-            const { firstName, lastName } = userResult;
+            const { firstName[1], lastName } = userResult;
 
             resolve(`${body} ${firstName} ${lastName}`);
           })
