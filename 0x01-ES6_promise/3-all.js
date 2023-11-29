@@ -13,20 +13,9 @@ function handleProfileSignup() {
             resolve(`${body} ${firstName} ${lastName}`);
           })
           .catch((error) => {
-            reject(error);
+            reject('Signup system offline',error);
           });
-      })
-      .catch((error) => {
-        reject(error);
       });
   });
 }
-
-handleProfileSignup()
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((error) => {
-    console.error('Signup system offline');
-});
 export default handleProfileSignup;
