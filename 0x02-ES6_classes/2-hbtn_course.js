@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 class HolbertonCourse {
   constructor(name, length, students) {
     this._name = this.validateName(name);
@@ -35,7 +34,8 @@ class HolbertonCourse {
       throw new TypeError('Name must be a string');
     }
 
-    return name;
+    this._name = name;
+    return this._name;
   }
 
   validateLength(length) {
@@ -43,15 +43,20 @@ class HolbertonCourse {
       throw new TypeError('Length must be a number');
     }
 
-    return length;
+    this._length = length;
+    return this._length;
   }
 
   validateStudents(students) {
-    if (!Array.isArray(students) || !students.every((student) => typeof student === 'string')) {
+    if (
+      !Array.isArray(students)
+      || !students.every((student) => typeof student === 'string')
+    ) {
       throw new TypeError('Students must be an array of strings');
     }
 
-    return students;
+    this._students = students;
+    return this._students;
   }
 }
 
