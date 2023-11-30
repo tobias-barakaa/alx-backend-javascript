@@ -6,7 +6,7 @@ const handleProfileSignup = () => new Promise((resolve, reject) => {
       const { body } = photoResult;
       const { firstName, lastName } = userResult;
 
-      console.log(`${body} ${firstName} ${lastName}`);
+      console.log(`${body[0]} ${firstName[1]} ${lastName[2]}`);
     })
     .catch(() => {
       console.log('Signup system offline');
