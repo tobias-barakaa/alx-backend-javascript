@@ -15,6 +15,7 @@ class Currency {
   get name() {
     return this._name;
   }
+
   set name(newValue) {
     this._name = newValue;
   }
