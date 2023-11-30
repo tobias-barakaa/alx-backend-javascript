@@ -32,28 +32,25 @@ class HolbertonCourse {
   validateName(name) {
     if (typeof name === 'string') {
       return name;
-    } else {
-      throw new TypeError('Name must be a string');
     }
+    throw new TypeError('Name must be a string');
   }
 
   validateLength(length) {
     if (typeof length === 'number') {
       return length;
-    } else {
-      throw new TypeError('Length must be a number');
     }
+      throw new TypeError('Length must be a number');
   }
 
   validateStudents(students) {
     if (
-      Array.isArray(students) &&
-      students.every((student) => typeof student === 'string')
+      Array.isArray(students)
+      && this._students.every((student) => typeof student === 'string')
     ) {
       return students;
-    } else {
-      throw new TypeError('Students must be an array of strings');
     }
+      throw new TypeError('Students must be an array of strings');
   }
 }
 
