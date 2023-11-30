@@ -1,28 +1,26 @@
 class HolbertonCourse {
-  constructor(students, name, length) {
-    this._students = students;
+  constructor(name, length, students) {
     this._name = name;
     this._length = length;
-  }
-
-  get students() {
-    return this._students;
+    this._students = students;
   }
 
   get name() {
     return this._name;
   }
+  get length() {
+    return this._length;
+  }
 
+  get students() {
+    return this._students;
+  }
   set name(newValue) {
     if (typeof newValue === "string") {
       this._name = newValue;
     } else {
       throw new TypeError("Name must be a string");
     }
-  }
-
-  get length() {
-    return this._length;
   }
 
   set length(newValue) {
