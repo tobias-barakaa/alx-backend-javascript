@@ -1,4 +1,4 @@
-/* eslint-disabled */
+/* eslint-disable no-unused-vars */
 class HolbertonCourse {
   constructor(name, length, students) {
     this._name = this.validateName(name);
@@ -31,30 +31,28 @@ class HolbertonCourse {
   }
 
   validateName(name) {
-    if (typeof name === 'string') {
-      return name;
-    } else {
+    if (typeof name !== 'string') {
       throw new TypeError('Name must be a string');
     }
+
+    return name;
   }
 
   validateLength(length) {
-    if (typeof length === 'number') {
-      return length;
-    } else {
+    if (typeof length !== 'number') {
       throw new TypeError('Length must be a number');
     }
+
+    return length;
   }
 
   validateStudents(students) {
-    if (
-      Array.isArray(students)
-      && students.every((student) => typeof student === 'string')
-    ) {
-      return students;
-    } else {
+    if (!Array.isArray(students) || !students.every((student) => typeof student === 'string')) {
       throw new TypeError('Students must be an array of strings');
     }
+
+    return students;
   }
 }
+
 export default HolbertonCourse;
