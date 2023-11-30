@@ -1,3 +1,4 @@
+/* eslint-disabled */
 class HolbertonCourse {
   constructor(name, length, students) {
     this._name = this.validateName(name);
