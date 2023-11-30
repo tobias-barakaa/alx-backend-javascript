@@ -1,5 +1,4 @@
-// 100-await.js
-import { uploadPhoto, createUser } from "./utils";
+import { uploadPhoto, createUser } from './utils';
 
 async function asyncUploadUser() {
   try {
@@ -12,27 +11,24 @@ async function asyncUploadUser() {
     ]);
 
     if (
-      photoResponse.status === "fulfilled" &&
-      userResponse.status === "fulfilled"
+      photoResponse.status === 'fulfilled'
+      && userResponse.status === 'fulfilled'
     ) {
       return {
         photo: photoResponse.value,
         user: userResponse.value,
       };
-    } else {
-      return {
-        photo: null,
-        user: null,
-      };
     }
+    return {
+      photo: null,
+      user: null,
+    };
   } catch (error) {
-    console.error("Error in asyncUploadUser:", error);
+    console.error('Error in asyncUploadUser:', error);
     return {
       photo: null,
       user: null,
     };
   }
 }
-
 export default asyncUploadUser;
-
