@@ -1,4 +1,16 @@
-import EVCar from './100-evcar.js';
+class EVCar extends Car {
+  constructor(brand, motor, color, range) {
+    super(brand, motor, color);
+    this._range = range;
+  }
 
-const ec1 = new EVCar("Tesla", "Turbo", "Red", "250");
-export default ec1;
+  get range() {
+    return this._range;
+  }
+  cloneCar() {
+    const newCar = new Car(this._brand, this._motor, this._color);
+    return newCar;
+  }
+}
+
+export default EVCar;
