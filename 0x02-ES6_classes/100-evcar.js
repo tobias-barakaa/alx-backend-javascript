@@ -9,6 +9,7 @@ class EVCar extends Car {
   get range() {
     return this._range;
   }
+
   cloneCar() {
     const newCar = new Car(this._brand, this._motor, this._color);
     return newCar;
