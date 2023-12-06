@@ -1,7 +1,3 @@
-import getListStudents from './0-get_list_students';
+import getListStudents from "./0-get_list_students.js";
 
-const logStudents = (students) => {
-  console.log(students);
-};
-
-getListStudents(logStudents);
+console.log(getListStudents());
