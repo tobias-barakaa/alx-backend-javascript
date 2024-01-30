@@ -1,6 +1,4 @@
-#!/usr/bin/env node
-const message = process.argv[2];
-function displayMessage() {
+function displayMessage(message) {
   console.log(message);
 }
 
