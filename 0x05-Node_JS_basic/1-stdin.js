@@ -1,5 +1,3 @@
-// 1-stdin.js
-
 const readline = require('readline');
 
 const input = readline.createInterface({
@@ -11,9 +9,11 @@ console.log('Welcome to Holberton School, what is your name?');
 
 input.on('line', (name) => {
   console.log(`Your name is: ${name}`);
-  input.close();
+  // Do not close the interface here
 });
+
 process.stdin.on('end', () => {
   console.log('This important software is now closing');
+  // Close the interface here, after handling all input
   input.close();
 });
