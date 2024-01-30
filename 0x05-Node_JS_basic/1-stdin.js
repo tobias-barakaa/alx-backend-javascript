@@ -1,19 +1,17 @@
 const readline = require('readline');
 
-const input = readline.createInterface({
+const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
 console.log('Welcome to Holberton School, what is your name?');
 
-input.on('line', (name) => {
-  console.log(`Your name is: ${name}`);
-  // Do not close the interface here
+rl.on('line', (input) => {
+  console.log(`Your name is: ${input}`);
+  rl.close();
 });
 
-process.stdin.on('end', () => {
+rl.on('close', () => {
   console.log('This important software is now closing');
-  // Close the interface here, after handling all input
-  input.close();
 });
