@@ -12,14 +12,20 @@ function countStudents(path) {
     console.log(`Number of students: ${lines.length}`);
 
     const students = lines.map((line) => line.split(','));
-    const fields = students[0].slice(1);
 
-    fields.forEach((field) => {
-      const fieldIndex = students[0].indexOf(field);
-      const studentsInField = students.slice(1).map((student) => student[fieldIndex].trim())
-        .filter(Boolean);
-      console.log(`Number of students in ${field}: ${studentsInField.length}. List: ${studentsInField.join(', ')}`);
-    });
+    // Function to count distinct values in a specific field
+    const countDistinctValues = (fieldIndex, fieldName) => {
+      const distinctValues = new Set(students.slice(1).map((student) => student[fieldIndex]
+        .trim()));
+      const distinctCount = distinctValues.size;
+      const distinctList = [...distinctValues].join(', ');
+      console.log(`Number of students in ${fieldName}: ${distinctCount}. List: ${distinctList}`);
+    };
+
+    // Count distinct values in each field
+    countDistinctValues(1, 'lastname');
+    countDistinctValues(2, 'age');
+    countDistinctValues(3, 'field');
   } catch (error) {
     console.error('Error:', error.message);
   }
