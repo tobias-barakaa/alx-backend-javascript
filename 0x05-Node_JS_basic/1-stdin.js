@@ -8,15 +8,12 @@ const input = readline.createInterface({
 });
 
 console.log('Welcome to Holberton School, what is your name?');
-const len = process.argv.length;
-if (len <= 2) {
-  input.on('line', (name) => {
-    console.log(`Your name is: ${name}`);
-    input.close();
-  });
-} else if (len > 2) {
+
+input.on('line', (name) => {
+  console.log(`Your name is: ${name}`);
+  input.close();
+});
+process.stdin.on('end', () => {
   console.log('This important software is now closing');
   input.close();
-} else {
-  input.close();
-}
+});
