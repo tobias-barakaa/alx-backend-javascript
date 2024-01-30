@@ -2,27 +2,45 @@ const fs = require('fs');
 
 function countStudents(path) {
   try {
-    const data = fs.readFileSync(path, 'utf-8');
-    const lines = data.split('\n').filter((line) => line.trim() !== '');
+    // Read the database file synchronously
+    const data = fs.readFileSync(path, 'utf8');
+    const lines = data.split('\n').filter(line => line.trim() !== '');
 
-    if (lines.length === 0) {
-      throw new Error('No valid students in the database');
+    // Check if there are any students
+    if (lines.length <= 1) {
+      throw new Error('No students found in the database');
     }
 
-    console.log(`Number of students: ${lines.length}`);
+    // Get the header and field indices
+    const header = lines[0].split(',');
+    const fieldIndex = header.indexOf('field');
+    const firstNameIndex = header.indexOf('firstname');
 
-    const students = lines.map((line) => line.split(','));
-    const fields = students[0].slice(1);
+    // Count the number of students in each field
+    const studentsByField = {};
+    lines.slice(1).forEach(line => {
+      const values = line.split(',');
+      const field = values[fieldIndex].trim();
+      const firstName = values[firstNameIndex].trim();
 
-    fields.forEach((field) => {
-      const fieldIndex = students[0].indexOf(field);
-      const studentsInField = students.slice(1).map((student) => student[fieldIndex])
-        .filter(Boolean);
-      console.log(`Number of students in ${field}: ${studentsInField.length}.
-      List: ${studentsInField.join(', ')}`);
+      if (!studentsByField[field]) {
+        studentsByField[field] = {
+          count: 0,
+          list: [],
+        };
+      }
+
+      studentsByField[field].count += 1;
+      studentsByField[field].list.push(firstName);
     });
+    console.log(`Number of students: ${lines.length - 1}`);
+    for (const field in studentsByField) {
+      const count = studentsByField[field].count;
+      const list = studentsByField[field].list.join(', ');
+      console.log(`Number of students in ${field}: ${count}. List: ${list}`);
+    }
   } catch (error) {
-    throw new Error('Cannot load the database');
+    console.error(`Error: ${error.message}`);
   }
 }
 
