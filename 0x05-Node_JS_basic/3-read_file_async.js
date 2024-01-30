@@ -1,32 +1,40 @@
-const fs = require('fs').promises;
+const fs = require('fs');
 
 function countStudents(path) {
   return new Promise((resolve, reject) => {
-    fs.readFile(path, 'utf-8')
-      .then((data) => {
-        const lines = data.split('\n').filter((line) => line.trim() !== '');
-
-        if (lines.length === 0) {
+    fs.readFile(path, 'utf-8', (error, data) => {
+      if (error) {
+        if (error.code === 'ENOENT') {
           reject(new Error('Cannot load the database'));
+        } else {
+          reject(error); // Rethrow other errors
         }
+      } else {
+        const rows = data.split('\n').filter((row) => row.trim()); // Remove empty lines
+        const students = rows.map((row) => row.split(','));
 
-        console.log(`Number of students: ${lines.length}`);
+        const studentCount = students.length;
+        const fields = {};
 
-        const students = lines.map((line) => line.split(','));
-        const fields = students[0].slice(1);
-
-        fields.forEach((field) => {
-          const fieldIndex = students[0].indexOf(field);
-          const studentsInField = students.slice(1).map((student) => student[fieldIndex].trim())
-            .filter(Boolean);
-          console.log(`Number of students in ${field}: ${studentsInField.length}. List: ${studentsInField.join(', ')}`);
+        students.forEach((student) => {
+          const field = student[3];
+          fields[field] = fields[field] || { count: 0, names: [] };
+          fields[field].count += 1;
+          fields[field].names.push(student[0]);
         });
 
+        console.log(`Number of students: ${studentCount}`);
+
+        for (const field in fields) {
+          if (Object.prototype.hasOwnProperty.call(fields, field)) {
+            const { count, names } = fields[field];
+            console.log(`Number of students in ${field}: ${count}. List: ${names.join(', ')}`);
+          }
+        }
+
         resolve();
-      })
-      .catch(() => {
-        reject(new Error('Cannot load the database'));
-      });
+      }
+    });
   });
 }
 
