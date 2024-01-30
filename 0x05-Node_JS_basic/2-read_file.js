@@ -18,7 +18,8 @@ function countStudents(path) {
       const fieldIndex = students[0].indexOf(field);
       const studentsInField = students.slice(1).map((student) => student[fieldIndex])
         .filter(Boolean);
-      console.log(`Number of students in ${field}: ${studentsInField.length}. List: ${studentsInField.join(', ')}`);
+      console.log(`Number of students in ${field}: ${studentsInField.length}.
+      List: ${studentsInField.join(', ')}`);
     });
   } catch (error) {
     throw new Error('Cannot load the database');
