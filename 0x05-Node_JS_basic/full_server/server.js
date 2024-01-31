@@ -1,11 +1,11 @@
-import { express } from 'express';
-import routes from './routes';
+import express from 'express';
+import createRouter from './routes';
 
 const app = express();
 const port = 1245;
 
 // Use the routes defined in full_server/routes/index.js
-app.use('/', routes);
+createRouter(app);
 
 // Start the server
 app.listen(port, () => {
