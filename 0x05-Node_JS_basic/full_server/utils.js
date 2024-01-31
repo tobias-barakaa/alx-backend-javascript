@@ -1,4 +1,4 @@
-import { readFile } from 'fs';
+import readFile from 'fs';
 
 function organizeStudentsByField(studentsInfo) {
   const fields = {};
