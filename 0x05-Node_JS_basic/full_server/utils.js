@@ -26,4 +26,5 @@ async function readDatabase(filePath) {
     throw new Error(`Error reading the database file: ${error.message}`);
   }
 }
-module.exports = { readDatabase };
+
+export default readDatabase;
