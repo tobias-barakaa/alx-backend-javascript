@@ -2,38 +2,24 @@ const fs = require('fs');
 
 function countStudents(path) {
   return new Promise((resolve, reject) => {
-    fs.readFile(path, 'utf-8', (error, data) => {
-      if (error) {
-        if (error.code === 'ENOENT') {
-          reject(new Error('Cannot load the database'));
-        } else {
-          reject(error); // Rethrow other errors
-        }
-      } else {
-        const rows = data.split('\n').filter((row) => row.trim()); // Remove empty lines
-        const students = rows.map((row) => row.split(','));
-
-        const studentCount = students.length;
+    fs.readFile(path, (err, data) => {
+      if (err) reject(Error('Cannot load the database'));
+      if (data) {
+        const lines = data.toString().split('\n').filter((line) => line.length > 0);
+        const numberOfStudents = lines.length ? lines.length - 1 : 0;
+        console.log(`Number of students: ${numberOfStudents}`);
         const fields = {};
-
-        students.forEach((student) => {
-          const field = student[3];
-          fields[field] = fields[field] || { count: 0, names: [] };
-          fields[field].count += 1;
-          fields[field].names.push(student[0]);
-        });
-
-        console.log(`Number of students: ${studentCount}`);
-
-        for (const field in fields) {
-          if (Object.prototype.hasOwnProperty.call(fields, field)) {
-            const { count, names } = fields[field];
-            console.log(`Number of students in ${field}: ${count}. List: ${names.join(', ')}`);
-          }
+        for (const line of lines) {
+          const student = line.split(',');
+          if (!fields[student[3]]) fields[student[3]] = [];
+          if (student[0] !== 'firstname') fields[student[3]].push(student[0]);
         }
-
-        resolve();
+        delete fields.field;
+        for (const field of Object.keys(fields)) {
+          console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
+        }
       }
+      resolve();
     });
   });
 }
