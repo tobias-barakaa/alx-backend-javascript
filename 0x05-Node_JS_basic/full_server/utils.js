@@ -1,4 +1,4 @@
-const { readFile } = require('fs').promises;
+import { readFile } from 'fs';
 
 function organizeStudentsByField(studentsInfo) {
   const fields = {};
