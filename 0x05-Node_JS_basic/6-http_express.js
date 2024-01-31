@@ -5,7 +5,7 @@ const port = 1245;
 const host = 'localhost';
 
 app.get('/', (req, res) => {
-  res.send('Hello Holberton School!\n');
+  res.send('Hello Holberton School!');
 });
 
 app.listen(port, host);
