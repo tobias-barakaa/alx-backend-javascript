@@ -1,42 +1,50 @@
 const http = require('http');
-const countStudents = require('./3-read_file_async');
+const fs = require('fs').promises;
 
-const app = http.createServer((req, res) => {
-  try {
-    if (req.url === '/') {
-      res.writeHead(200, { 'Content-Type': 'text/plain' });
-      res.end('Hello Holberton School!');
-    } else if (req.url === '/students') {
-      const databasePath = process.argv[2];
-      if (!databasePath) {
-        throw new Error('Database path not provided');
-      }
-
-      countStudents(databasePath)
-        .then((data) => {
-          res.writeHead(200, { 'Content-Type': 'text/plain' });
-          res.write('This is the list of our students\n');
-          res.end(data);
-        })
-        .catch((error) => {
-          console.error(error); // Log error for debugging
-          res.writeHead(500, { 'Content-Type': 'text/plain' });
-          res.end('Error retrieving student data');
-        });
-    } else {
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
-      res.end('Not found');
+const parseData = (data) => {
+  const lines = data.split('\n');
+  const studentsByField = {};
+  lines.forEach((line) => {
+    const [ , field, firstName ] = line.split(',');
+    if (!studentsByField[field]) {
+      studentsByField[field] = {
+        count: 0,
+        list: [],
+      };
     }
-  } catch (error) {
-    console.error(error); // Log unexpected errors for debugging
-    res.writeHead(500, { 'Content-Type': 'text/plain' });
-    res.end('Internal server error');
+    studentsByField[field].count += 1;
+    studentsByField[field].list.push(firstName);
+  });
+  return studentsByField;
+};
+
+const app = http.createServer(async (req, res) => {
+  res.setHeader('Content-Type', 'text/plain');
+  if (req.url === '/') {
+    res.end('Hello Holberton School!');
+  } else if (req.url === '/students') {
+    try {
+      const data = await fs.readFile(process.argv[2], 'utf8');
+      const studentsByField = parseData(data);
+      let responseMessage = 'This is the list of our students\n';
+      for (const field in studentsByField) {
+        if (Object.prototype.hasOwnProperty.call(studentsByField, field)) {
+          const { count, list } = studentsByField[field];
+          const studentsList = list.join(', ');
+          responseMessage += `Number of students in ${field}: ${count}. List: ${studentsList}\n`;
+        }
+      }
+      res.end(responseMessage);
+    } catch (error) {
+      res.statusCode = 500;
+      res.end(`Error: ${error.message}`);
+    }
+  } else {
+    res.statusCode = 404;
+    res.end('Not found');
   }
 });
 
-const port = 1245;
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+app.listen(1245);
 
 module.exports = app;
