@@ -53,7 +53,7 @@ app.get('/students', async (req, res) => {
       if (Object.prototype.hasOwnProperty.call(studentsByField, field)) {
         const { count, list } = studentsByField[field];
         const studentsList = list.join(', ');
-        responseMessage += `Number of students in ${field}: ${count}. List: ${studentsList}\n`;
+        responseMessage += `Number of students in ${field}: ${count}. List: ${studentsList}`;
       }
     }
 
