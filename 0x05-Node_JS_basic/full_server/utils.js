@@ -28,3 +28,4 @@ async function readDatabase(filePath) {
 }
 
 export default readDatabase;
+module.exports = readDatabase;
