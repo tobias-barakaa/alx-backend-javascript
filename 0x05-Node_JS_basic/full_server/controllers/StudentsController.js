@@ -1,4 +1,4 @@
-import readDatabase from '../utils';
+import { readDatabase } from '../utils';
 
 class StudentsController {
   static async getAllStudents(req, res) {
