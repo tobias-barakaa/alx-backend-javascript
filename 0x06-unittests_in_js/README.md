@@ -2,7 +2,7 @@
 <p> Unit testing in JavaScript involves testing individual units or components of a program in isolation to ensure they function correctly. Popular testing frameworks for JavaScript include Jest, Mocha, Jasmine, and others. Here, we'll cover the general concepts of unit testing in JavaScript: </p>
 
 # Setting up a Testing Environment:
-# Choose a Testing Framework:
+Choose a Testing Framework:
 
 <p>Jest: A popular and feature-rich testing framework.
 Mocha: A flexible testing framework that allows you to use different assertion libraries.
@@ -26,15 +26,15 @@ A test case is an individual test that checks a specific behavior.
 
 // Jest example
 
-# # describe('Math operations', () => {
-# #  test('adds two numbers', () => {
-#     expect(1 + 2).toBe(3);
-#  # });
+ describe('Math operations', () => {
+  test('adds two numbers', () => {
+    expect(1 + 2).toBe(3);
+ });
 
-# # test('multiplies two numbers', () => {
-#     expect(2 * 3).toBe(6);
-# #  });
-# # });
+ test('multiplies two numbers', () => {
+    expect(2 * 3).toBe(6);
+  });
+ });
 
 
 <h4> Assertions:</h4>
@@ -57,10 +57,10 @@ Libraries like Sinon.js provide tools for mocking
 jest.mock('./dependency');
 import { myFunction } from './dependency';
 
-# test('mocking example', () => {
-#  myFunction.mockReturnValue('mocked result');
-#  expect(myFunction()).toBe('mocked result');
-# });
+test('mocking example', () => {
+ myFunction.mockReturnValue('mocked result');
+ expect(myFunction()).toBe('mocked result');
+});
 
 <h4>Mocking Example</h4>
 
