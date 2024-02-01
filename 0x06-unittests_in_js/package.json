@@ -4,7 +4,7 @@
   "description": "<p> Unit testing in JavaScript involves testing individual units or components of a program in isolation to ensure they function correctly. Popular testing frameworks for JavaScript include Jest, Mocha, Jasmine, and others. Here, we'll cover the general concepts of unit testing in JavaScript: </p>",
   "main": "index.js",
   "scripts": {
-    "test": "node ./node_modules/mocha/bin/mocha --require babel-register --exit"
+    "test": "mocha '0-calcul.test.js'"
   },
   "keywords": [],
   "author": "",
