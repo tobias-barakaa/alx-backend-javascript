@@ -35,6 +35,10 @@ describe('calculateNumber', () => {
     assert.strictEqual(calculateNumber(Infinity, 5), Infinity);
 
   })
+  it(' random', () => {
+    assert.strictEqual(calculateNumber(3.49999, 5.49999), 8);
+
+  })
   it('large floating values', () => {
     assert.strictEqual(calculateNumber(3.00000, 1.00000), 4.00000);
   })
