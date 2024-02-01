@@ -1,5 +1,3 @@
-// 0-calcul.test.js
-
 const assert = require('assert');
 const calculateNumber = require('./0-calcul.js');
 
@@ -40,4 +38,11 @@ describe('calculateNumber', () => {
   it('large floating values', () => {
     assert.strictEqual(calculateNumber(3.00000, 1.00000), 4.00000);
   })
+  it('large floating values', () => {
+    assert.strictEqual(calculateNumber(3.0, 1.0), 4);
+  })
+  it('negative values', () => {
+    assert.strictEqual(calculateNumber(-3.0, 1.0), -2);
+  })
+  
 });
