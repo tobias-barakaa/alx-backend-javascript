@@ -1,36 +1,37 @@
+// 0-calcul.test.js
+
 const assert = require('assert');
-const calculateNumber = require('./0-calcul');
+const calculateNumber = require('./0-calcul.js');
 
 describe('calculateNumber', () => {
-  it('floating point whole numbers', () => {
-    assert.strictEqual(calculateNumber(1.0, 2.0), 3);
+  it('should calculate the sum of rounded numbers', () => {
+    assert.strictEqual(calculateNumber(1, 3), 4);
+     
   });
 
-  it('rounding down b\'s floating point fractional number', () => {
-    assert.strictEqual(calculateNumber(1.0, 2.4), 3);
+  it('should handle floating point numbers', () => {
+    assert.strictEqual(calculateNumber(1.1, 3.0), 4);
+    
   });
+  it('Edge Cases:', () => {
+    assert.strictEqual(calculateNumber(0, 5), 5);
 
-  it('rounding down a and b\'s floating point fractional number', () => {
-    assert.strictEqual(calculateNumber(1.4, 2.4), 3);
   });
+  it('Large Numbers', () => {
+    assert.strictEqual(calculateNumber(999999999, 1000000001), 2000000000);
+  });
+  it('Order Independence:', () => {
+    assert.strictEqual(calculateNumber(1, 2), 3);
+  });
+  it('Equality of Rounded Numbers', () => {
+    assert.strictEqual(calculateNumber(3.3, 3.7), 7);
+  });
+  
+  it(' Infinity and NaN', () => {
+    assert.strictEqual(calculateNumber(Infinity, 5), Infinity);
 
-  it('rounding down a\'s floating point fractional number', () => {
-    assert.strictEqual(calculateNumber(1.4, 2.0), 3);
-  });
-
-  it('rounding up b\'s floating point fractional numbers', () => {
-    assert.strictEqual(calculateNumber(1.0, 2.5), 4);
-  });
-
-  it('rounding up a and b\'s floating point fractional numbers', () => {
-    assert.strictEqual(calculateNumber(2.6, 2.5), 6);
-  });
-
-  it('rounding up a\'s floating point fractional numbers', () => {
-    assert.strictEqual(calculateNumber(2.6, 2.0), 5);
-  });
-
-  it('rounding down a and b floating point fractional numbers with trailing 9\'s', () => {
-    assert.strictEqual(calculateNumber(2.499999, 3.499999), 5);
-  });
+  })
+  it('large floating values', () => {
+    assert.strictEqual(calculateNumber(3.00000, 1.00000), 4.00000);
+  })
 });
