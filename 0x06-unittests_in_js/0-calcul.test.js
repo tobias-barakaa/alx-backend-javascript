@@ -10,9 +10,15 @@ describe('calculateNumber', () => {
   });
 
   it('should handle floating point numbers', () => {
-    assert.strictEqual(calculateNumber(1.1, 3.0), 4);
+    assert.strictEqual(calculateNumber(1, 3.7), 5);
     
   });
+  it('more complex numbers', () => {
+    assert.strictEqual(calculateNumber(1.2, 3.7), 5);
+  })
+  it('more complex numbers', () => {
+    assert.strictEqual(calculateNumber(1.5, 3.7), 6);
+  })
   it('Edge Cases:', () => {
     assert.strictEqual(calculateNumber(0, 5), 5);
 
