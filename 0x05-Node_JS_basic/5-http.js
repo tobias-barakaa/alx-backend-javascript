@@ -3,7 +3,7 @@ const countStudents = require('./3-read_file_async');
 
 const port = 1245;
 
-const app = http.createServer((req, res) => {
+const handleRequest = (req, res) => {
   res.setHeader('Content-Type', 'text/plain');
   let responseBody;
 
@@ -11,6 +11,13 @@ const app = http.createServer((req, res) => {
     responseBody = 'Hello Holberton School!';
   } else if (req.url === '/students') {
     const databasePath = process.argv[2]; // Get database path from argument
+
+    if (!databasePath) {
+      res.statusCode = 400;
+      res.end('Bad Request: Missing database path');
+      return;
+    }
+
     countStudents(databasePath)
       .then(() => {
         // Response body already printed by countStudents
@@ -30,7 +37,9 @@ const app = http.createServer((req, res) => {
   if (!res.headersSent) {
     res.end(responseBody);
   }
-});
+};
+
+const app = http.createServer(handleRequest);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
