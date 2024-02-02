@@ -1,33 +1,28 @@
 const sinon = require('sinon');
-const { expect } = require('chai');
-const Utils = require('./utils');
-const { sendPaymentRequestToApi } = require('./4-payment');
+const chai = require('chai');
+const expect = chai.expect;
+const sendPaymentRequestToApi = require('./4-payment.js');
 
-describe('sendPaymentRequestToApi', function () {
-  let calculateNumberStub;
-  let consoleLogSpy;
+describe('sendPaymentRequestToApi', () => {
+  it('should call Utils.calculateNumber with correct arguments and log the message', () => {
+    // 1. Stub the Utils.calculateNumber function
+    const calculateNumberStub = sinon.stub(require('./utils.js'), 'calculateNumber');
+    calculateNumberStub.returns(10); // Always return 10
 
-  beforeEach(function () {
-    // Stub the calculateNumber function to always return 10
-    calculateNumberStub = sinon.stub(Utils, 'calculateNumber').returns(10);
+    // 2. Spy on the console.log function
+    const consoleLogSpy = sinon.spy(console, 'log');
 
-    // Spy on console.log
-    consoleLogSpy = sinon.spy(console, 'log');
-  });
-
-  afterEach(function () {
-    // Restore the stub and the spy
-    calculateNumberStub.restore();
-    consoleLogSpy.restore();
-  });
-
-  it('should call Utils.calculateNumber with correct arguments and log the result', function () {
+    // 3. Call the function under test
     sendPaymentRequestToApi(100, 20);
 
-    // Verify the stub was called with the correct arguments
-    expect(calculateNumberStub.calledWithExactly('SUM', 100, 20)).to.be.true;
+    // 4. Assertions: Verify stub and spy behavior
+    expect(calculateNumberStub.calledOnce).to.be.true;
+    expect(calculateNumberStub.calledWith('SUM', 100, 20)).to.be.true;
+    expect(consoleLogSpy.calledOnce).to.be.true;
+    expect(consoleLogSpy.calledWith('The total is: 10')).to.be.true;
 
-    // Verify the console.log message contains the expected result
-    expect(consoleLogSpy.calledWithExactly('The total is: 10')).to.be.true;
+    // 5. Restore the stub and spy
+    calculateNumberStub.restore();
+    consoleLogSpy.restore();
   });
 });
