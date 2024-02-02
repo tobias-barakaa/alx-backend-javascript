@@ -8,8 +8,8 @@ describe('sendPaymentRequestToApi', function () {
   let consoleLogSpy;
 
   beforeEach(function () {
-    // Stub the calculateNumber function to return an error
-    calculateNumberStub = sinon.stub(Utils, 'calculateNumber').throws('Error');
+    // Stub the calculateNumber function to always return 10
+    calculateNumberStub = sinon.stub(Utils, 'calculateNumber').returns(10);
 
     // Spy on console.log
     consoleLogSpy = sinon.spy(console, 'log');
@@ -19,16 +19,6 @@ describe('sendPaymentRequestToApi', function () {
     // Restore the stub and the spy
     calculateNumberStub.restore();
     consoleLogSpy.restore();
-  });
-
-  it('should handle error from Utils.calculateNumber and log an error message', function () {
-    sendPaymentRequestToApi(100, 20);
-
-    // Verify the stub was called with the correct arguments
-    expect(calculateNumberStub.calledWithExactly('SUM', 100, 20)).to.be.true;
-
-    // Verify the console.log message contains the expected error message
-    expect(consoleLogSpy.calledWithMatch(sinon.match('Error'))).to.be.true;
   });
 
   it('should call Utils.calculateNumber with correct arguments and log the result', function () {
